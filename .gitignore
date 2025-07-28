@@ -3,6 +3,7 @@
 ### Custom
 
 .DS_Store
+/junit.xml
 
 ### Template: https://github.com/github/gitignore/blob/main/Node.gitignore ###
 
