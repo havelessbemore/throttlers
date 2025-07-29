@@ -1,25 +1,40 @@
 export { TimeoutError } from "wait-utils";
 
 export {
-  FixedWindowThrottler,
-  type FixedWindowThrottlerConfig,
-} from "./fixedWindowThrottler";
+  FixedWindowStrategy,
+  type FixedWindowStrategyConfig,
+} from "./strategies/fixedWindowStrategy";
 
 export {
-  LeakyBucketThrottler,
-  type LeakyBucketThrottlerConfig,
-} from "./leakyBucketThrottler";
-
-export { type LinearThrottlerConfig, LinearThrottler } from "./linearThrottler";
+  LeakyBucketStrategy,
+  type LeakyBucketStrategyConfig,
+} from "./strategies/leakyBucketStrategy";
 
 export {
-  SlidingWindowThrottler,
-  type SlidingWindowThrottlerConfig,
-} from "./slidingWindowThrottler";
-
-export type { Throttler, ThrottlerWaitOptions } from "./throttler";
+  LinearStrategy,
+  type LinearStrategyConfig,
+} from "./strategies/linearStrategy";
 
 export {
-  TokenBucketThrottler,
-  type TokenBucketThrottlerConfig,
-} from "./tokenBucketThrottler";
+  SlidingWindowStrategy,
+  type SlidingWindowStrategyConfig,
+} from "./strategies/slidingWindowStrategy";
+
+export {
+  TokenBucketStrategy,
+  type TokenBucketStrategyConfig,
+} from "./strategies/tokenBucketStrategy";
+
+export type { AcquireOptions, Throttler } from "./types/throttler";
+
+export type {
+  TryAcquireFailure,
+  TryAcquireResult,
+  TryAcquireSuccess,
+  ThrottlerStrategy,
+} from "./types/throttlerStrategy";
+
+export {
+  StrategyThrottler,
+  type StrategyThrottlerConfig,
+} from "./strategyThrottler";

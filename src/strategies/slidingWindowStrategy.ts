@@ -1,10 +1,10 @@
-import { poll } from "wait-utils";
-
-import { ACQUIRED } from "./utils/constants";
-import { Throttler, ThrottlerWaitOptions } from "./throttler";
+import {
+  ThrottlerStrategy,
+  TryAcquireResult,
+} from "src/types/throttlerStrategy";
 
 /**
- * Configuration options for creating a {@link SlidingWindowThrottler}.
+ * Configuration options for creating a {@link SlidingWindowStrategy}.
  *
  * @example
  * // 5 requests per second
@@ -13,7 +13,7 @@ import { Throttler, ThrottlerWaitOptions } from "./throttler";
  *  limit: 5
  * }
  */
-export interface SlidingWindowThrottlerConfig {
+export interface SlidingWindowStrategyConfig {
   /**
    * The size of the window in milliseconds.
    */
@@ -34,7 +34,7 @@ export interface SlidingWindowThrottlerConfig {
  * tracking the timestamps of accepted requests and ensuring
  * no more than a fixed number occur within any given interval.
  */
-export class SlidingWindowThrottler implements Throttler {
+export class SlidingWindowStrategy implements ThrottlerStrategy {
   /**
    * The size of the window in milliseconds.
    */
@@ -58,7 +58,7 @@ export class SlidingWindowThrottler implements Throttler {
    */
   private slots: number[];
 
-  constructor({ duration, limit }: SlidingWindowThrottlerConfig) {
+  constructor({ duration, limit }: SlidingWindowStrategyConfig) {
     if (duration < 0) {
       throw new RangeError("Invalid duration");
     }
@@ -83,30 +83,15 @@ export class SlidingWindowThrottler implements Throttler {
    * oldest request is returned to indicate how long the caller
    * should wait before retrying.
    */
-  protected tryAcquire(): number {
+  tryAcquire(): TryAcquireResult {
     const now = performance.now();
-    
+
     if (now < this.slots[this.index]) {
-      return this.slots[this.index] - now;
+      return { success: false, retryAfterMs: this.slots[this.index] - now };
     }
 
     this.slots[this.index] = now + this.duration;
     this.index = (this.index + 1) % this.limit;
-    return ACQUIRED;
-  }
-
-  tryWait(): boolean {
-    return this.tryAcquire() === ACQUIRED;
-  }
-
-  wait({ signal, timeout }: ThrottlerWaitOptions = {}): Promise<void> {
-    return poll(ctx => {
-      ctx.delay = this.tryAcquire();
-      ctx.stop = ctx.delay === ACQUIRED;
-    }, {
-      delay: 0,
-      signal,
-      timeout,
-    });
+    return { success: true };
   }
 }

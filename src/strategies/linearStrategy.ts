@@ -1,10 +1,10 @@
-import { poll } from "wait-utils";
-
-import { Throttler, ThrottlerWaitOptions } from "./throttler";
-import { ACQUIRED } from "./utils/constants";
+import {
+  ThrottlerStrategy,
+  TryAcquireResult,
+} from "src/types/throttlerStrategy";
 
 /**
- * Configuration options for creating a {@link LinearThrottler}.
+ * Configuration options for creating a {@link LinearStrategy}.
  *
  * @example
  * // Allow one request every 500 milliseconds
@@ -12,7 +12,7 @@ import { ACQUIRED } from "./utils/constants";
  *  duration: 500
  * }
  */
-export interface LinearThrottlerConfig {
+export interface LinearStrategyConfig {
   /**
    * The minimum duration between requests, in milliseconds.
    */
@@ -26,7 +26,7 @@ export interface LinearThrottlerConfig {
  * `duration` milliseconds after the previous one, providing
  * consistent pacing without bursts.
  */
-export class LinearThrottler implements Throttler {
+export class LinearStrategy implements ThrottlerStrategy {
   /**
    * The minimum duration between requests, in milliseconds.
    */
@@ -37,7 +37,7 @@ export class LinearThrottler implements Throttler {
    */
   private slot: number;
 
-  constructor({ duration }: LinearThrottlerConfig) {
+  constructor({ duration }: LinearStrategyConfig) {
     if (duration < 0) {
       throw new RangeError("Duration must be non-negative");
     }
@@ -54,29 +54,14 @@ export class LinearThrottler implements Throttler {
    * request is allowed to indicate how long the caller
    * should wait before retrying.
    */
-  protected tryAcquire(): number {
+  tryAcquire(): TryAcquireResult {
     const now = performance.now();
-    
+
     if (now < this.slot) {
-      return this.slot - now;
+      return { success: false, retryAfterMs: this.slot - now };
     }
 
     this.slot = now + this.duration;
-    return ACQUIRED
-  }
-
-  tryWait(): boolean {
-    return this.tryAcquire() === ACQUIRED;
-  }
-
-  wait({ signal, timeout }: ThrottlerWaitOptions = {}): Promise<void> {
-    return poll(ctx => {
-      ctx.delay = this.tryAcquire();
-      ctx.stop = ctx.delay === ACQUIRED;
-    }, {
-      delay: 0,
-      signal,
-      timeout,
-    });
+    return { success: true };
   }
 }

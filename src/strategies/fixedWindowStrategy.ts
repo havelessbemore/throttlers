@@ -1,10 +1,10 @@
-import { poll } from "wait-utils";
-
-import { ACQUIRED } from "./utils/constants";
-import { Throttler, ThrottlerWaitOptions } from "./throttler";
+import {
+  ThrottlerStrategy,
+  TryAcquireResult,
+} from "src/types/throttlerStrategy";
 
 /**
- * Configuration options for creating a {@link FixedWindowThrottler}.
+ * Configuration options for creating a {@link FixedWindowStrategy}.
  *
  * @example
  * // 5 requests per second
@@ -13,7 +13,7 @@ import { Throttler, ThrottlerWaitOptions } from "./throttler";
  *  limit: 5
  * }
  */
-export interface FixedWindowThrottlerConfig {
+export interface FixedWindowStrategyConfig {
   /**
    * The size of the window in milliseconds.
    */
@@ -37,7 +37,7 @@ export interface FixedWindowThrottlerConfig {
  * Note: This approach can cause bursts of traffic at
  * window boundaries.
  */
-export class FixedWindowThrottler implements Throttler {
+export class FixedWindowStrategy implements ThrottlerStrategy {
   /**
    * The size of the window in milliseconds.
    */
@@ -58,7 +58,7 @@ export class FixedWindowThrottler implements Throttler {
    */
   private count: number;
 
-  constructor({ duration, limit }: FixedWindowThrottlerConfig) {
+  constructor({ duration, limit }: FixedWindowStrategyConfig) {
     if (duration < 0) {
       throw new RangeError("Invalid duration");
     }
@@ -80,7 +80,7 @@ export class FixedWindowThrottler implements Throttler {
    * Otherwise, returns the number of milliseconds to wait
    * before the caller should retry.
    */
-  protected tryAcquire(): number {
+  tryAcquire(): TryAcquireResult {
     const now = performance.now();
 
     if (now >= this.windowEnd) {
@@ -89,25 +89,10 @@ export class FixedWindowThrottler implements Throttler {
     }
 
     if (this.count + 1 > this.limit) {
-      return this.windowEnd - now;
+      return { success: false, retryAfterMs: this.windowEnd - now };
     }
 
     ++this.count;
-    return ACQUIRED;
-  }
-
-  tryWait(): boolean {
-    return this.tryAcquire() === ACQUIRED;
-  }
-
-  wait({ signal, timeout }: ThrottlerWaitOptions = {}): Promise<void> {
-    return poll(ctx => {
-      ctx.delay = this.tryAcquire();
-      ctx.stop = ctx.delay === ACQUIRED;
-    }, {
-      delay: 0,
-      signal,
-      timeout,
-    });
+    return { success: true };
   }
 }

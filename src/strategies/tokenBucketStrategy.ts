@@ -1,10 +1,10 @@
-import { poll } from "wait-utils";
-
-import { ACQUIRED } from "./utils/constants";
-import { Throttler, ThrottlerWaitOptions } from "./throttler";
+import {
+  ThrottlerStrategy,
+  TryAcquireResult,
+} from "src/types/throttlerStrategy";
 
 /**
- * Configuration options for creating a {@link TokenBucketThrottler}.
+ * Configuration options for creating a {@link TokenBucketStrategy}.
  *
  * @example
  *
@@ -14,7 +14,7 @@ import { Throttler, ThrottlerWaitOptions } from "./throttler";
  *  refillRate: 5
  * }
  */
-export interface TokenBucketThrottlerConfig {
+export interface TokenBucketStrategyConfig {
   /**
    * Maximum number of tokens the bucket can hold.
    *
@@ -40,7 +40,7 @@ export interface TokenBucketThrottlerConfig {
  * Each request consumes one token. Tokens are added
  * continuously over time based on the configured refill rate.
  */
-export class TokenBucketThrottler implements Throttler {
+export class TokenBucketStrategy implements ThrottlerStrategy {
   /**
    * Maximum number of tokens in the bucket.
    */
@@ -61,7 +61,7 @@ export class TokenBucketThrottler implements Throttler {
    */
   private tokens: number;
 
-  constructor({ capacity, refillRate }: TokenBucketThrottlerConfig) {
+  constructor({ capacity, refillRate }: TokenBucketStrategyConfig) {
     if (capacity < 1) {
       throw new RangeError("Invalid capacity");
     }
@@ -85,7 +85,7 @@ export class TokenBucketThrottler implements Throttler {
    * Otherwise, returns the timestamp when a token will become
    * available to allow the request.
    */
-  protected tryAcquire(): number {
+  tryAcquire(): TryAcquireResult {
     const now = performance.now();
 
     // Calculate tokens refilled since the last check
@@ -98,26 +98,11 @@ export class TokenBucketThrottler implements Throttler {
     if (this.tokens < 1) {
       const delta = 1 - this.tokens;
       const duration = (1000 * delta) / this.refillRate;
-      return Math.max(1, duration);
+      return { success: false, retryAfterMs: Math.max(1, duration) };
     }
 
     // Accept the request
     --this.tokens;
-    return ACQUIRED;
-  }
-
-  tryWait(): boolean {
-    return this.tryAcquire() === ACQUIRED;
-  }
-
-  wait({ signal, timeout }: ThrottlerWaitOptions = {}): Promise<void> {
-    return poll(ctx => {
-      ctx.delay = this.tryAcquire();
-      ctx.stop = ctx.delay === ACQUIRED;
-    }, {
-      delay: 0,
-      signal,
-      timeout,
-    });
+    return { success: true };
   }
 }

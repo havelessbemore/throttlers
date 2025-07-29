@@ -1,10 +1,10 @@
-import { poll } from "wait-utils";
-
-import { ACQUIRED } from "./utils/constants";
-import { Throttler, ThrottlerWaitOptions } from "./throttler";
+import {
+  ThrottlerStrategy,
+  TryAcquireResult,
+} from "src/types/throttlerStrategy";
 
 /**
- * Configuration options for creating a {@link LeakyBucketThrottler}.
+ * Configuration options for creating a {@link LeakyBucketStrategy}.
  *
  * @example
  * // Allow bursts of up to 10 requests, with a drain of 5 per second
@@ -13,7 +13,7 @@ import { Throttler, ThrottlerWaitOptions } from "./throttler";
  *   leakRate: 5
  * }
  */
-export interface LeakyBucketThrottlerConfig {
+export interface LeakyBucketStrategyConfig {
   /**
    * Maximum number of tokens the bucket can hold.
    *
@@ -39,7 +39,7 @@ export interface LeakyBucketThrottlerConfig {
  *
  * This method smooths bursts over time, providing a steady output rate.
  */
-export class LeakyBucketThrottler implements Throttler {
+export class LeakyBucketStrategy implements ThrottlerStrategy {
   /**
    * Maximum capacity of the bucket.
    */
@@ -59,7 +59,7 @@ export class LeakyBucketThrottler implements Throttler {
    */
   private tokens: number;
 
-  constructor({ capacity, leakRate }: LeakyBucketThrottlerConfig) {
+  constructor({ capacity, leakRate }: LeakyBucketStrategyConfig) {
     if (capacity < 1) {
       throw new RangeError("Invalid capacity");
     }
@@ -83,7 +83,7 @@ export class LeakyBucketThrottler implements Throttler {
    * Otherwise, returns the timestamp of when enough leakage
    * will occur to allow the request.
    */
-  protected tryAcquire(): number {
+  tryAcquire(): TryAcquireResult {
     const now = performance.now();
 
     // Calculate tokens leaked since the last check
@@ -96,26 +96,11 @@ export class LeakyBucketThrottler implements Throttler {
     if (this.tokens > this.capacity - 1) {
       const delta = this.tokens - this.capacity + 1;
       const duration = (1000 * delta) / this.leakRate;
-      return Math.max(1, duration);
+      return { success: false, retryAfterMs: Math.max(1, duration) };
     }
 
     // Accept the request
     ++this.tokens;
-    return ACQUIRED;
-  }
-
-  tryWait(): boolean {
-    return this.tryAcquire() === ACQUIRED;
-  }
-
-  wait({ signal, timeout }: ThrottlerWaitOptions = {}): Promise<void> {
-    return poll(ctx => {
-      ctx.delay = this.tryAcquire();
-      ctx.stop = ctx.delay === ACQUIRED;
-    }, {
-      delay: 0,
-      signal,
-      timeout,
-    });
+    return { success: true };
   }
 }
