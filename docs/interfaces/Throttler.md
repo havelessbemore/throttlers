@@ -6,63 +6,56 @@
 
 # Interface: Throttler
 
-Defined in: [src/throttler.ts:26](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/throttler.ts#L26)
+Defined in: [src/types/throttler.ts:25](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttler.ts#L25)
 
 An interface for throttlers that regulate the pacing
 of operations to conform to a specified rate.
 
 ## Methods
 
-### tryWait()
+### acquire()
 
-> **tryWait**(): `boolean`
+> **acquire**(`options?`): `Promise`\<`void`\>
 
-Defined in: [src/throttler.ts:36](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/throttler.ts#L36)
+Defined in: [src/types/throttler.ts:42](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttler.ts#L42)
 
-Attempts to proceed immediately without waiting.
-
-Performs a non-blocking check to determine whether the operation
-can be executed immediately based on the throttler's state.
-
-#### Returns
-
-`boolean`
-
-`true` if the operation can proceed immediately,
-`false` if it must be delayed.
-
-***
-
-### wait()
-
-> **wait**(`options?`): `Promise`\<`void`\>
-
-Defined in: [src/throttler.ts:52](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/throttler.ts#L52)
-
-Waits until the throttler permits execution based on its rate-limiting logic.
-
-Supports cancellation via `AbortSignal`, timeouts, and custom retry behavior.
+Asynchronously acquires the ability to proceed.
 
 #### Parameters
 
 ##### options?
 
-[`ThrottlerWaitOptions`](ThrottlerWaitOptions.md)
+[`AcquireOptions`](AcquireOptions.md)
 
-Optional controls:
-  - `signal`: aborts the wait early and throws `AbortError`.
-  - `timeout`: maximum total time to wait before throwing [TimeoutError](../classes/TimeoutError.md).
+Optional [AcquireOptions](AcquireOptions.md) to control behavior.
 
 #### Returns
 
 `Promise`\<`void`\>
 
-A promise that resolves after waiting completes, or rejects if cancelled.
+A promise that resolves once permission is granted.
 
 #### Throws
 
-An `AbortError` if the provided signal is aborted before resolution.
+An `AbortError` if the signal is aborted before acquisition.
 
 #### Throws
 
-A [TimeoutError](../classes/TimeoutError.md) if the wait exceeds the given timeout.
+A [TimeoutError](../classes/TimeoutError.md) if the wait time exceeds [AcquireOptions.timeout](AcquireOptions.md#timeout).
+
+***
+
+### tryAcquire()
+
+> **tryAcquire**(): `boolean`
+
+Defined in: [src/types/throttler.ts:32](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttler.ts#L32)
+
+Attempts to acquire permission immediately.
+
+#### Returns
+
+`boolean`
+
+`true` if allowed immediately, `false` otherwise.
+If `false`, the caller may retry later or call [acquire](#acquire).

@@ -6,126 +6,102 @@
 
 # Class: LinearThrottler
 
-Defined in: [src/linearThrottler.ts:29](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/linearThrottler.ts#L29)
+Defined in: [src/strategies/linearStrategy.ts:70](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L70)
 
-A throttler that enforces a fixed delay between requests.
+An interface for throttlers that regulate the pacing
+of operations to conform to a specified rate.
 
-This throttler ensures that each request occurs at least
-`duration` milliseconds after the previous one, providing
-consistent pacing without bursts.
+## Extends
 
-## Implements
-
-- [`Throttler`](../interfaces/Throttler.md)
+- [`StrategyThrottler`](StrategyThrottler.md)
 
 ## Constructors
 
 ### Constructor
 
-> **new LinearThrottler**(`__namedParameters`): `LinearThrottler`
+> **new LinearThrottler**(`config`): `LinearThrottler`
 
-Defined in: [src/linearThrottler.ts:40](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/linearThrottler.ts#L40)
+Defined in: [src/strategies/linearStrategy.ts:71](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L71)
 
 #### Parameters
 
-##### \_\_namedParameters
+##### config
 
-[`LinearThrottlerConfig`](../interfaces/LinearThrottlerConfig.md)
+[`LinearConfig`](../interfaces/LinearConfig.md)
 
 #### Returns
 
 `LinearThrottler`
 
+#### Overrides
+
+[`StrategyThrottler`](StrategyThrottler.md).[`constructor`](StrategyThrottler.md#constructor)
+
 ## Properties
 
-### duration
+### strategy
 
-> `readonly` **duration**: `number`
+> `readonly` **strategy**: [`ThrottlerStrategy`](../interfaces/ThrottlerStrategy.md)
 
-Defined in: [src/linearThrottler.ts:33](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/linearThrottler.ts#L33)
+Defined in: [src/strategyThrottler.ts:11](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L11)
 
-The minimum duration between requests, in milliseconds.
+#### Inherited from
+
+[`StrategyThrottler`](StrategyThrottler.md).[`strategy`](StrategyThrottler.md#strategy)
 
 ## Methods
 
-### tryAcquire()
+### acquire()
 
-> `protected` **tryAcquire**(): `number`
+> **acquire**(`options`): `Promise`\<`void`\>
 
-Defined in: [src/linearThrottler.ts:57](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/linearThrottler.ts#L57)
+Defined in: [src/strategyThrottler.ts:21](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L21)
 
-Attempts to acquire permission to proceed with the operation.
-
-Allows the request if the current time is past `slot`.
-
-Otherwise, returns the timestamp when the next
-request is allowed to indicate how long the caller
-should wait before retrying.
-
-#### Returns
-
-`number`
-
-***
-
-### tryWait()
-
-> **tryWait**(): `boolean`
-
-Defined in: [src/linearThrottler.ts:68](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/linearThrottler.ts#L68)
-
-Attempts to proceed immediately without waiting.
-
-Performs a non-blocking check to determine whether the operation
-can be executed immediately based on the throttler's state.
-
-#### Returns
-
-`boolean`
-
-`true` if the operation can proceed immediately,
-`false` if it must be delayed.
-
-#### Implementation of
-
-[`Throttler`](../interfaces/Throttler.md).[`tryWait`](../interfaces/Throttler.md#trywait)
-
-***
-
-### wait()
-
-> **wait**(`options`): `Promise`\<`void`\>
-
-Defined in: [src/linearThrottler.ts:72](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/linearThrottler.ts#L72)
-
-Waits until the throttler permits execution based on its rate-limiting logic.
-
-Supports cancellation via `AbortSignal`, timeouts, and custom retry behavior.
+Asynchronously acquires the ability to proceed.
 
 #### Parameters
 
 ##### options
 
-[`ThrottlerWaitOptions`](../interfaces/ThrottlerWaitOptions.md) = `{}`
+[`AcquireOptions`](../interfaces/AcquireOptions.md) = `{}`
 
-Optional controls:
-  - `signal`: aborts the wait early and throws `AbortError`.
-  - `timeout`: maximum total time to wait before throwing [TimeoutError](TimeoutError.md).
+Optional [AcquireOptions](../interfaces/AcquireOptions.md) to control behavior.
 
 #### Returns
 
 `Promise`\<`void`\>
 
-A promise that resolves after waiting completes, or rejects if cancelled.
+A promise that resolves once permission is granted.
 
 #### Throws
 
-An `AbortError` if the provided signal is aborted before resolution.
+An `AbortError` if the signal is aborted before acquisition.
 
 #### Throws
 
-A [TimeoutError](TimeoutError.md) if the wait exceeds the given timeout.
+A [TimeoutError](TimeoutError.md) if the wait time exceeds [AcquireOptions.timeout](../interfaces/AcquireOptions.md#timeout).
 
-#### Implementation of
+#### Inherited from
 
-[`Throttler`](../interfaces/Throttler.md).[`wait`](../interfaces/Throttler.md#wait)
+[`StrategyThrottler`](StrategyThrottler.md).[`acquire`](StrategyThrottler.md#acquire)
+
+***
+
+### tryAcquire()
+
+> **tryAcquire**(): `boolean`
+
+Defined in: [src/strategyThrottler.ts:17](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L17)
+
+Attempts to acquire permission immediately.
+
+#### Returns
+
+`boolean`
+
+`true` if allowed immediately, `false` otherwise.
+If `false`, the caller may retry later or call [acquire](../interfaces/Throttler.md#acquire).
+
+#### Inherited from
+
+[`StrategyThrottler`](StrategyThrottler.md).[`tryAcquire`](StrategyThrottler.md#tryacquire)

@@ -36,7 +36,7 @@ export interface Throttler {
    *
    * @param options - Optional {@link AcquireOptions} to control behavior.
    * @returns A promise that resolves once permission is granted.
-   * @throws An {@link AbortError} if the signal is aborted before acquisition.
+   * @throws An `AbortError` if the signal is aborted before acquisition.
    * @throws A {@link TimeoutError} if the wait time exceeds {@link AcquireOptions.timeout}.
    */
   acquire(options?: AcquireOptions): Promise<void>;

@@ -1,4 +1,5 @@
-import {
+import { StrategyThrottler } from "src/strategyThrottler";
+import type {
   ThrottlerStrategy,
   TryAcquireResult,
 } from "src/types/throttlerStrategy";
@@ -13,7 +14,7 @@ import {
  *  limit: 5
  * }
  */
-export interface FixedWindowStrategyConfig {
+export interface FixedWindowConfig {
   /**
    * The size of the window in milliseconds.
    */
@@ -58,7 +59,7 @@ export class FixedWindowStrategy implements ThrottlerStrategy {
    */
   private count: number;
 
-  constructor({ duration, limit }: FixedWindowStrategyConfig) {
+  constructor({ duration, limit }: FixedWindowConfig) {
     if (duration < 0) {
       throw new RangeError("Invalid duration");
     }
@@ -94,5 +95,11 @@ export class FixedWindowStrategy implements ThrottlerStrategy {
 
     ++this.count;
     return { success: true };
+  }
+}
+
+export class FixedWindowThrottler extends StrategyThrottler {
+  constructor(config: FixedWindowConfig) {
+    super({ strategy: new FixedWindowStrategy(config) });
   }
 }

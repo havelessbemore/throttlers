@@ -1,4 +1,5 @@
-import {
+import { StrategyThrottler } from "src/strategyThrottler";
+import type {
   ThrottlerStrategy,
   TryAcquireResult,
 } from "src/types/throttlerStrategy";
@@ -13,7 +14,7 @@ import {
  *   leakRate: 5
  * }
  */
-export interface LeakyBucketStrategyConfig {
+export interface LeakyBucketConfig {
   /**
    * Maximum number of tokens the bucket can hold.
    *
@@ -59,7 +60,7 @@ export class LeakyBucketStrategy implements ThrottlerStrategy {
    */
   private tokens: number;
 
-  constructor({ capacity, leakRate }: LeakyBucketStrategyConfig) {
+  constructor({ capacity, leakRate }: LeakyBucketConfig) {
     if (capacity < 1) {
       throw new RangeError("Invalid capacity");
     }
@@ -102,5 +103,11 @@ export class LeakyBucketStrategy implements ThrottlerStrategy {
     // Accept the request
     ++this.tokens;
     return { success: true };
+  }
+}
+
+export class LeakyBucketThrottler extends StrategyThrottler {
+  constructor(config: LeakyBucketConfig) {
+    super({ strategy: new LeakyBucketStrategy(config) });
   }
 }

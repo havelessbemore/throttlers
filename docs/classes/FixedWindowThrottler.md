@@ -6,138 +6,102 @@
 
 # Class: FixedWindowThrottler
 
-Defined in: [src/fixedWindowThrottler.ts:40](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/fixedWindowThrottler.ts#L40)
+Defined in: [src/strategies/fixedWindowStrategy.ts:101](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/fixedWindowStrategy.ts#L101)
 
-A throttler that uses the fixed window algorithm.
+An interface for throttlers that regulate the pacing
+of operations to conform to a specified rate.
 
-This throttler counts the number of requests within
-each fixed-duration window. Once the limit is reached,
-additional requests are delayed until future windows.
+## Extends
 
-Note: This approach can cause bursts of traffic at
-window boundaries.
-
-## Implements
-
-- [`Throttler`](../interfaces/Throttler.md)
+- [`StrategyThrottler`](StrategyThrottler.md)
 
 ## Constructors
 
 ### Constructor
 
-> **new FixedWindowThrottler**(`__namedParameters`): `FixedWindowThrottler`
+> **new FixedWindowThrottler**(`config`): `FixedWindowThrottler`
 
-Defined in: [src/fixedWindowThrottler.ts:61](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/fixedWindowThrottler.ts#L61)
+Defined in: [src/strategies/fixedWindowStrategy.ts:102](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/fixedWindowStrategy.ts#L102)
 
 #### Parameters
 
-##### \_\_namedParameters
+##### config
 
-[`FixedWindowThrottlerConfig`](../interfaces/FixedWindowThrottlerConfig.md)
+[`FixedWindowConfig`](../interfaces/FixedWindowConfig.md)
 
 #### Returns
 
 `FixedWindowThrottler`
 
+#### Overrides
+
+[`StrategyThrottler`](StrategyThrottler.md).[`constructor`](StrategyThrottler.md#constructor)
+
 ## Properties
 
-### duration
+### strategy
 
-> `readonly` **duration**: `number`
+> `readonly` **strategy**: [`ThrottlerStrategy`](../interfaces/ThrottlerStrategy.md)
 
-Defined in: [src/fixedWindowThrottler.ts:44](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/fixedWindowThrottler.ts#L44)
+Defined in: [src/strategyThrottler.ts:11](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L11)
 
-The size of the window in milliseconds.
+#### Inherited from
 
-***
-
-### limit
-
-> `readonly` **limit**: `number`
-
-Defined in: [src/fixedWindowThrottler.ts:49](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/fixedWindowThrottler.ts#L49)
-
-The number of requests allowed per window.
+[`StrategyThrottler`](StrategyThrottler.md).[`strategy`](StrategyThrottler.md#strategy)
 
 ## Methods
 
-### tryAcquire()
+### acquire()
 
-> `protected` **tryAcquire**(): `number`
+> **acquire**(`options`): `Promise`\<`void`\>
 
-Defined in: [src/fixedWindowThrottler.ts:83](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/fixedWindowThrottler.ts#L83)
+Defined in: [src/strategyThrottler.ts:21](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L21)
 
-Attempts to acquire permission to proceed with a request.
-
-If the current window has capacity, returns <= 0.
-
-Otherwise, returns the number of milliseconds to wait
-before the caller should retry.
-
-#### Returns
-
-`number`
-
-***
-
-### tryWait()
-
-> **tryWait**(): `boolean`
-
-Defined in: [src/fixedWindowThrottler.ts:99](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/fixedWindowThrottler.ts#L99)
-
-Attempts to proceed immediately without waiting.
-
-Performs a non-blocking check to determine whether the operation
-can be executed immediately based on the throttler's state.
-
-#### Returns
-
-`boolean`
-
-`true` if the operation can proceed immediately,
-`false` if it must be delayed.
-
-#### Implementation of
-
-[`Throttler`](../interfaces/Throttler.md).[`tryWait`](../interfaces/Throttler.md#trywait)
-
-***
-
-### wait()
-
-> **wait**(`options`): `Promise`\<`void`\>
-
-Defined in: [src/fixedWindowThrottler.ts:103](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/fixedWindowThrottler.ts#L103)
-
-Waits until the throttler permits execution based on its rate-limiting logic.
-
-Supports cancellation via `AbortSignal`, timeouts, and custom retry behavior.
+Asynchronously acquires the ability to proceed.
 
 #### Parameters
 
 ##### options
 
-[`ThrottlerWaitOptions`](../interfaces/ThrottlerWaitOptions.md) = `{}`
+[`AcquireOptions`](../interfaces/AcquireOptions.md) = `{}`
 
-Optional controls:
-  - `signal`: aborts the wait early and throws `AbortError`.
-  - `timeout`: maximum total time to wait before throwing [TimeoutError](TimeoutError.md).
+Optional [AcquireOptions](../interfaces/AcquireOptions.md) to control behavior.
 
 #### Returns
 
 `Promise`\<`void`\>
 
-A promise that resolves after waiting completes, or rejects if cancelled.
+A promise that resolves once permission is granted.
 
 #### Throws
 
-An `AbortError` if the provided signal is aborted before resolution.
+An `AbortError` if the signal is aborted before acquisition.
 
 #### Throws
 
-A [TimeoutError](TimeoutError.md) if the wait exceeds the given timeout.
+A [TimeoutError](TimeoutError.md) if the wait time exceeds [AcquireOptions.timeout](../interfaces/AcquireOptions.md#timeout).
 
-#### Implementation of
+#### Inherited from
 
-[`Throttler`](../interfaces/Throttler.md).[`wait`](../interfaces/Throttler.md#wait)
+[`StrategyThrottler`](StrategyThrottler.md).[`acquire`](StrategyThrottler.md#acquire)
+
+***
+
+### tryAcquire()
+
+> **tryAcquire**(): `boolean`
+
+Defined in: [src/strategyThrottler.ts:17](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L17)
+
+Attempts to acquire permission immediately.
+
+#### Returns
+
+`boolean`
+
+`true` if allowed immediately, `false` otherwise.
+If `false`, the caller may retry later or call [acquire](../interfaces/Throttler.md#acquire).
+
+#### Inherited from
+
+[`StrategyThrottler`](StrategyThrottler.md).[`tryAcquire`](StrategyThrottler.md#tryacquire)

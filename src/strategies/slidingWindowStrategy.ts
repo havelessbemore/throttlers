@@ -1,4 +1,5 @@
-import {
+import { StrategyThrottler } from "src/strategyThrottler";
+import type {
   ThrottlerStrategy,
   TryAcquireResult,
 } from "src/types/throttlerStrategy";
@@ -13,7 +14,7 @@ import {
  *  limit: 5
  * }
  */
-export interface SlidingWindowStrategyConfig {
+export interface SlidingWindowConfig {
   /**
    * The size of the window in milliseconds.
    */
@@ -58,7 +59,7 @@ export class SlidingWindowStrategy implements ThrottlerStrategy {
    */
   private slots: number[];
 
-  constructor({ duration, limit }: SlidingWindowStrategyConfig) {
+  constructor({ duration, limit }: SlidingWindowConfig) {
     if (duration < 0) {
       throw new RangeError("Invalid duration");
     }
@@ -93,5 +94,11 @@ export class SlidingWindowStrategy implements ThrottlerStrategy {
     this.slots[this.index] = now + this.duration;
     this.index = (this.index + 1) % this.limit;
     return { success: true };
+  }
+}
+
+export class SlidingWindowThrottler extends StrategyThrottler {
+  constructor(config: SlidingWindowConfig) {
+    super({ strategy: new SlidingWindowStrategy(config) });
   }
 }

@@ -2,40 +2,44 @@
 
 ***
 
-[throttlers](../globals.md) / TokenBucketThrottler
+[throttlers](../globals.md) / StrategyThrottler
 
-# Class: TokenBucketThrottler
+# Class: StrategyThrottler
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:111](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L111)
+Defined in: [src/strategyThrottler.ts:10](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L10)
 
 An interface for throttlers that regulate the pacing
 of operations to conform to a specified rate.
 
-## Extends
+## Extended by
 
-- [`StrategyThrottler`](StrategyThrottler.md)
+- [`FixedWindowThrottler`](FixedWindowThrottler.md)
+- [`LeakyBucketThrottler`](LeakyBucketThrottler.md)
+- [`LinearThrottler`](LinearThrottler.md)
+- [`SlidingWindowThrottler`](SlidingWindowThrottler.md)
+- [`TokenBucketThrottler`](TokenBucketThrottler.md)
+
+## Implements
+
+- [`Throttler`](../interfaces/Throttler.md)
 
 ## Constructors
 
 ### Constructor
 
-> **new TokenBucketThrottler**(`config`): `TokenBucketThrottler`
+> **new StrategyThrottler**(`__namedParameters`): `StrategyThrottler`
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:112](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L112)
+Defined in: [src/strategyThrottler.ts:13](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L13)
 
 #### Parameters
 
-##### config
+##### \_\_namedParameters
 
-[`TokenBucketConfig`](../interfaces/TokenBucketConfig.md)
+[`StrategyThrottlerConfig`](../interfaces/StrategyThrottlerConfig.md)
 
 #### Returns
 
-`TokenBucketThrottler`
-
-#### Overrides
-
-[`StrategyThrottler`](StrategyThrottler.md).[`constructor`](StrategyThrottler.md#constructor)
+`StrategyThrottler`
 
 ## Properties
 
@@ -44,10 +48,6 @@ Defined in: [src/strategies/tokenBucketStrategy.ts:112](https://github.com/havel
 > `readonly` **strategy**: [`ThrottlerStrategy`](../interfaces/ThrottlerStrategy.md)
 
 Defined in: [src/strategyThrottler.ts:11](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L11)
-
-#### Inherited from
-
-[`StrategyThrottler`](StrategyThrottler.md).[`strategy`](StrategyThrottler.md#strategy)
 
 ## Methods
 
@@ -81,9 +81,9 @@ An `AbortError` if the signal is aborted before acquisition.
 
 A [TimeoutError](TimeoutError.md) if the wait time exceeds [AcquireOptions.timeout](../interfaces/AcquireOptions.md#timeout).
 
-#### Inherited from
+#### Implementation of
 
-[`StrategyThrottler`](StrategyThrottler.md).[`acquire`](StrategyThrottler.md#acquire)
+[`Throttler`](../interfaces/Throttler.md).[`acquire`](../interfaces/Throttler.md#acquire)
 
 ***
 
@@ -102,6 +102,6 @@ Attempts to acquire permission immediately.
 `true` if allowed immediately, `false` otherwise.
 If `false`, the caller may retry later or call [acquire](../interfaces/Throttler.md#acquire).
 
-#### Inherited from
+#### Implementation of
 
-[`StrategyThrottler`](StrategyThrottler.md).[`tryAcquire`](StrategyThrottler.md#tryacquire)
+[`Throttler`](../interfaces/Throttler.md).[`tryAcquire`](../interfaces/Throttler.md#tryacquire)

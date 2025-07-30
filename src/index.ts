@@ -1,29 +1,39 @@
 export { TimeoutError } from "wait-utils";
 
 export {
+  type FixedWindowConfig,
   FixedWindowStrategy,
-  type FixedWindowStrategyConfig,
+  FixedWindowThrottler,
 } from "./strategies/fixedWindowStrategy";
 
 export {
+  type LeakyBucketConfig,
   LeakyBucketStrategy,
-  type LeakyBucketStrategyConfig,
+  LeakyBucketThrottler,
 } from "./strategies/leakyBucketStrategy";
 
 export {
+  type LinearConfig,
   LinearStrategy,
-  type LinearStrategyConfig,
+  LinearThrottler,
 } from "./strategies/linearStrategy";
 
 export {
+  type SlidingWindowConfig,
   SlidingWindowStrategy,
-  type SlidingWindowStrategyConfig,
+  SlidingWindowThrottler,
 } from "./strategies/slidingWindowStrategy";
 
 export {
+  type TokenBucketConfig,
   TokenBucketStrategy,
-  type TokenBucketStrategyConfig,
+  TokenBucketThrottler,
 } from "./strategies/tokenBucketStrategy";
+
+export {
+  StrategyThrottler,
+  type StrategyThrottlerConfig,
+} from "./strategyThrottler";
 
 export type { AcquireOptions, Throttler } from "./types/throttler";
 
@@ -33,8 +43,3 @@ export type {
   TryAcquireSuccess,
   ThrottlerStrategy,
 } from "./types/throttlerStrategy";
-
-export {
-  StrategyThrottler,
-  type StrategyThrottlerConfig,
-} from "./strategyThrottler";

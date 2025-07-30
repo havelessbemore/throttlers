@@ -1,4 +1,5 @@
-import {
+import { StrategyThrottler } from "src/strategyThrottler";
+import type {
   ThrottlerStrategy,
   TryAcquireResult,
 } from "src/types/throttlerStrategy";
@@ -12,7 +13,7 @@ import {
  *  duration: 500
  * }
  */
-export interface LinearStrategyConfig {
+export interface LinearConfig {
   /**
    * The minimum duration between requests, in milliseconds.
    */
@@ -37,7 +38,7 @@ export class LinearStrategy implements ThrottlerStrategy {
    */
   private slot: number;
 
-  constructor({ duration }: LinearStrategyConfig) {
+  constructor({ duration }: LinearConfig) {
     if (duration < 0) {
       throw new RangeError("Duration must be non-negative");
     }
@@ -63,5 +64,11 @@ export class LinearStrategy implements ThrottlerStrategy {
 
     this.slot = now + this.duration;
     return { success: true };
+  }
+}
+
+export class LinearThrottler extends StrategyThrottler {
+  constructor(config: LinearConfig) {
+    super({ strategy: new LinearStrategy(config) });
   }
 }

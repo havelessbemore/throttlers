@@ -1,4 +1,5 @@
-import {
+import { StrategyThrottler } from "src/strategyThrottler";
+import type {
   ThrottlerStrategy,
   TryAcquireResult,
 } from "src/types/throttlerStrategy";
@@ -14,7 +15,7 @@ import {
  *  refillRate: 5
  * }
  */
-export interface TokenBucketStrategyConfig {
+export interface TokenBucketConfig {
   /**
    * Maximum number of tokens the bucket can hold.
    *
@@ -61,7 +62,7 @@ export class TokenBucketStrategy implements ThrottlerStrategy {
    */
   private tokens: number;
 
-  constructor({ capacity, refillRate }: TokenBucketStrategyConfig) {
+  constructor({ capacity, refillRate }: TokenBucketConfig) {
     if (capacity < 1) {
       throw new RangeError("Invalid capacity");
     }
@@ -104,5 +105,11 @@ export class TokenBucketStrategy implements ThrottlerStrategy {
     // Accept the request
     --this.tokens;
     return { success: true };
+  }
+}
+
+export class TokenBucketThrottler extends StrategyThrottler {
+  constructor(config: TokenBucketConfig) {
+    super({ strategy: new TokenBucketStrategy(config) });
   }
 }

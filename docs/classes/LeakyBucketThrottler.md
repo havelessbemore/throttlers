@@ -6,140 +6,102 @@
 
 # Class: LeakyBucketThrottler
 
-Defined in: [src/leakyBucketThrottler.ts:42](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/leakyBucketThrottler.ts#L42)
+Defined in: [src/strategies/leakyBucketStrategy.ts:109](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/leakyBucketStrategy.ts#L109)
 
-A throttler that uses the leaky bucket algorithm.
+An interface for throttlers that regulate the pacing
+of operations to conform to a specified rate.
 
-Tokens are added to a "bucket" which drains at a steady rate
-defined by `leakRate`. If the bucket overflows (`capacity` exceeded),
-further requests are throttled until enough leakage has occurred.
+## Extends
 
-This method smooths bursts over time, providing a steady output rate.
-
-## Implements
-
-- [`Throttler`](../interfaces/Throttler.md)
+- [`StrategyThrottler`](StrategyThrottler.md)
 
 ## Constructors
 
 ### Constructor
 
-> **new LeakyBucketThrottler**(`__namedParameters`): `LeakyBucketThrottler`
+> **new LeakyBucketThrottler**(`config`): `LeakyBucketThrottler`
 
-Defined in: [src/leakyBucketThrottler.ts:62](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/leakyBucketThrottler.ts#L62)
+Defined in: [src/strategies/leakyBucketStrategy.ts:110](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/leakyBucketStrategy.ts#L110)
 
 #### Parameters
 
-##### \_\_namedParameters
+##### config
 
-[`LeakyBucketThrottlerConfig`](../interfaces/LeakyBucketThrottlerConfig.md)
+[`LeakyBucketConfig`](../interfaces/LeakyBucketConfig.md)
 
 #### Returns
 
 `LeakyBucketThrottler`
 
+#### Overrides
+
+[`StrategyThrottler`](StrategyThrottler.md).[`constructor`](StrategyThrottler.md#constructor)
+
 ## Properties
 
-### capacity
+### strategy
 
-> `readonly` **capacity**: `number`
+> `readonly` **strategy**: [`ThrottlerStrategy`](../interfaces/ThrottlerStrategy.md)
 
-Defined in: [src/leakyBucketThrottler.ts:46](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/leakyBucketThrottler.ts#L46)
+Defined in: [src/strategyThrottler.ts:11](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L11)
 
-Maximum capacity of the bucket.
+#### Inherited from
 
-***
-
-### leakRate
-
-> `readonly` **leakRate**: `number`
-
-Defined in: [src/leakyBucketThrottler.ts:55](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/leakyBucketThrottler.ts#L55)
-
-Rate at which tokens are leaked, per second.
+[`StrategyThrottler`](StrategyThrottler.md).[`strategy`](StrategyThrottler.md#strategy)
 
 ## Methods
 
-### tryAcquire()
+### acquire()
 
-> `protected` **tryAcquire**(): `number`
+> **acquire**(`options`): `Promise`\<`void`\>
 
-Defined in: [src/leakyBucketThrottler.ts:86](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/leakyBucketThrottler.ts#L86)
+Defined in: [src/strategyThrottler.ts:21](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L21)
 
-Attempts to acquire permission to proceed with a request.
-
-First, the number of leaked tokens since the last check
-is calculated and the bucket's level is updated accordingly.
-
-If the bucket has capacity, the request is accepted.
-
-Otherwise, returns the timestamp of when enough leakage
-will occur to allow the request.
-
-#### Returns
-
-`number`
-
-***
-
-### tryWait()
-
-> **tryWait**(): `boolean`
-
-Defined in: [src/leakyBucketThrottler.ts:107](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/leakyBucketThrottler.ts#L107)
-
-Attempts to proceed immediately without waiting.
-
-Performs a non-blocking check to determine whether the operation
-can be executed immediately based on the throttler's state.
-
-#### Returns
-
-`boolean`
-
-`true` if the operation can proceed immediately,
-`false` if it must be delayed.
-
-#### Implementation of
-
-[`Throttler`](../interfaces/Throttler.md).[`tryWait`](../interfaces/Throttler.md#trywait)
-
-***
-
-### wait()
-
-> **wait**(`options`): `Promise`\<`void`\>
-
-Defined in: [src/leakyBucketThrottler.ts:111](https://github.com/havelessbemore/throttlers/blob/0085c42010e9779979ae29dd951b097a22da3fcd/src/leakyBucketThrottler.ts#L111)
-
-Waits until the throttler permits execution based on its rate-limiting logic.
-
-Supports cancellation via `AbortSignal`, timeouts, and custom retry behavior.
+Asynchronously acquires the ability to proceed.
 
 #### Parameters
 
 ##### options
 
-[`ThrottlerWaitOptions`](../interfaces/ThrottlerWaitOptions.md) = `{}`
+[`AcquireOptions`](../interfaces/AcquireOptions.md) = `{}`
 
-Optional controls:
-  - `signal`: aborts the wait early and throws `AbortError`.
-  - `timeout`: maximum total time to wait before throwing [TimeoutError](TimeoutError.md).
+Optional [AcquireOptions](../interfaces/AcquireOptions.md) to control behavior.
 
 #### Returns
 
 `Promise`\<`void`\>
 
-A promise that resolves after waiting completes, or rejects if cancelled.
+A promise that resolves once permission is granted.
 
 #### Throws
 
-An `AbortError` if the provided signal is aborted before resolution.
+An `AbortError` if the signal is aborted before acquisition.
 
 #### Throws
 
-A [TimeoutError](TimeoutError.md) if the wait exceeds the given timeout.
+A [TimeoutError](TimeoutError.md) if the wait time exceeds [AcquireOptions.timeout](../interfaces/AcquireOptions.md#timeout).
 
-#### Implementation of
+#### Inherited from
 
-[`Throttler`](../interfaces/Throttler.md).[`wait`](../interfaces/Throttler.md#wait)
+[`StrategyThrottler`](StrategyThrottler.md).[`acquire`](StrategyThrottler.md#acquire)
+
+***
+
+### tryAcquire()
+
+> **tryAcquire**(): `boolean`
+
+Defined in: [src/strategyThrottler.ts:17](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L17)
+
+Attempts to acquire permission immediately.
+
+#### Returns
+
+`boolean`
+
+`true` if allowed immediately, `false` otherwise.
+If `false`, the caller may retry later or call [acquire](../interfaces/Throttler.md#acquire).
+
+#### Inherited from
+
+[`StrategyThrottler`](StrategyThrottler.md).[`tryAcquire`](StrategyThrottler.md#tryacquire)
