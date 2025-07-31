@@ -6,7 +6,7 @@
 
 # Class: LeakyBucketStrategy
 
-Defined in: [src/strategies/leakyBucketStrategy.ts:43](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/leakyBucketStrategy.ts#L43)
+Defined in: [src/strategies/leakyBucketStrategy.ts:43](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/leakyBucketStrategy.ts#L43)
 
 A throttler that uses the leaky bucket algorithm.
 
@@ -26,7 +26,7 @@ This method smooths bursts over time, providing a steady output rate.
 
 > **new LeakyBucketStrategy**(`__namedParameters`): `LeakyBucketStrategy`
 
-Defined in: [src/strategies/leakyBucketStrategy.ts:63](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/leakyBucketStrategy.ts#L63)
+Defined in: [src/strategies/leakyBucketStrategy.ts:63](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/leakyBucketStrategy.ts#L63)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/strategies/leakyBucketStrategy.ts:63](https://github.com/havele
 
 > `readonly` **capacity**: `number`
 
-Defined in: [src/strategies/leakyBucketStrategy.ts:47](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/leakyBucketStrategy.ts#L47)
+Defined in: [src/strategies/leakyBucketStrategy.ts:47](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/leakyBucketStrategy.ts#L47)
 
 Maximum capacity of the bucket.
 
@@ -54,7 +54,7 @@ Maximum capacity of the bucket.
 
 > `readonly` **leakRate**: `number`
 
-Defined in: [src/strategies/leakyBucketStrategy.ts:56](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/leakyBucketStrategy.ts#L56)
+Defined in: [src/strategies/leakyBucketStrategy.ts:56](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/leakyBucketStrategy.ts#L56)
 
 Rate at which tokens are leaked, per second.
 
@@ -64,7 +64,7 @@ Rate at which tokens are leaked, per second.
 
 > **tryAcquire**(): [`TryAcquireResult`](../type-aliases/TryAcquireResult.md)
 
-Defined in: [src/strategies/leakyBucketStrategy.ts:87](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/leakyBucketStrategy.ts#L87)
+Defined in: [src/strategies/leakyBucketStrategy.ts:87](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/leakyBucketStrategy.ts#L87)
 
 Attempts to acquire permission to proceed with a request.
 

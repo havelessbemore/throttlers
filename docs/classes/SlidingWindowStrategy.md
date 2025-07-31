@@ -6,7 +6,7 @@
 
 # Class: SlidingWindowStrategy
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:38](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L38)
+Defined in: [src/strategies/slidingWindowStrategy.ts:38](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L38)
 
 A throttler that uses the sliding window algorithm.
 
@@ -24,7 +24,7 @@ no more than a fixed number occur within any given interval.
 
 > **new SlidingWindowStrategy**(`__namedParameters`): `SlidingWindowStrategy`
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:62](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L62)
+Defined in: [src/strategies/slidingWindowStrategy.ts:62](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L62)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/strategies/slidingWindowStrategy.ts:62](https://github.com/have
 
 > `readonly` **duration**: `number`
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:42](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L42)
+Defined in: [src/strategies/slidingWindowStrategy.ts:42](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L42)
 
 The size of the window in milliseconds.
 
@@ -52,7 +52,7 @@ The size of the window in milliseconds.
 
 > `readonly` **limit**: `number`
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:52](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L52)
+Defined in: [src/strategies/slidingWindowStrategy.ts:52](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L52)
 
 The number of requests allowed per window.
 
@@ -62,7 +62,7 @@ The number of requests allowed per window.
 
 > **tryAcquire**(): [`TryAcquireResult`](../type-aliases/TryAcquireResult.md)
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:87](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L87)
+Defined in: [src/strategies/slidingWindowStrategy.ts:87](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L87)
 
 Attempts to acquire permission to proceed with a request.
 

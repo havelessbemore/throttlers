@@ -1,7 +1,7 @@
 import { poll } from "wait-utils";
 
-import type { AcquireOptions, Throttler } from "src/types/throttler";
-import type { ThrottlerStrategy } from "src/types/throttlerStrategy";
+import type { AcquireOptions, Throttler } from "./types/throttler";
+import type { ThrottlerStrategy } from "./types/throttlerStrategy";
 
 export interface StrategyThrottlerConfig {
   strategy: ThrottlerStrategy;

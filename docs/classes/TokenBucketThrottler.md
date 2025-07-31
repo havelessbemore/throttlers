@@ -6,7 +6,7 @@
 
 # Class: TokenBucketThrottler
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:111](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L111)
+Defined in: [src/strategies/tokenBucketStrategy.ts:111](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L111)
 
 An interface for throttlers that regulate the pacing
 of operations to conform to a specified rate.
@@ -21,7 +21,7 @@ of operations to conform to a specified rate.
 
 > **new TokenBucketThrottler**(`config`): `TokenBucketThrottler`
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:112](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L112)
+Defined in: [src/strategies/tokenBucketStrategy.ts:112](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L112)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ Defined in: [src/strategies/tokenBucketStrategy.ts:112](https://github.com/havel
 
 > `readonly` **strategy**: [`ThrottlerStrategy`](../interfaces/ThrottlerStrategy.md)
 
-Defined in: [src/strategyThrottler.ts:11](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L11)
+Defined in: [src/strategyThrottler.ts:11](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategyThrottler.ts#L11)
 
 #### Inherited from
 
@@ -55,7 +55,7 @@ Defined in: [src/strategyThrottler.ts:11](https://github.com/havelessbemore/thro
 
 > **acquire**(`options`): `Promise`\<`void`\>
 
-Defined in: [src/strategyThrottler.ts:21](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L21)
+Defined in: [src/strategyThrottler.ts:21](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategyThrottler.ts#L21)
 
 Asynchronously acquires the ability to proceed.
 
@@ -91,7 +91,7 @@ A [TimeoutError](TimeoutError.md) if the wait time exceeds [AcquireOptions.timeo
 
 > **tryAcquire**(): `boolean`
 
-Defined in: [src/strategyThrottler.ts:17](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategyThrottler.ts#L17)
+Defined in: [src/strategyThrottler.ts:17](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategyThrottler.ts#L17)
 
 Attempts to acquire permission immediately.
 

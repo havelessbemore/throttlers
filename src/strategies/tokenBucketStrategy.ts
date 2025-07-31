@@ -1,8 +1,8 @@
-import { StrategyThrottler } from "src/strategyThrottler";
+import { StrategyThrottler } from "../strategyThrottler";
 import type {
   ThrottlerStrategy,
   TryAcquireResult,
-} from "src/types/throttlerStrategy";
+} from "../types/throttlerStrategy";
 
 /**
  * Configuration options for creating a {@link TokenBucketStrategy}.

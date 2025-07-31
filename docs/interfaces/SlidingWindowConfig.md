@@ -6,7 +6,7 @@
 
 # Interface: SlidingWindowConfig
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:17](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L17)
+Defined in: [src/strategies/slidingWindowStrategy.ts:17](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L17)
 
 Configuration options for creating a [SlidingWindowStrategy](../classes/SlidingWindowStrategy.md).
 
@@ -26,7 +26,7 @@ Configuration options for creating a [SlidingWindowStrategy](../classes/SlidingW
 
 > **duration**: `number`
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:21](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L21)
+Defined in: [src/strategies/slidingWindowStrategy.ts:21](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L21)
 
 The size of the window in milliseconds.
 
@@ -36,7 +36,7 @@ The size of the window in milliseconds.
 
 > **limit**: `number`
 
-Defined in: [src/strategies/slidingWindowStrategy.ts:28](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/slidingWindowStrategy.ts#L28)
+Defined in: [src/strategies/slidingWindowStrategy.ts:28](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/slidingWindowStrategy.ts#L28)
 
 The number of requests allowed per window.
 

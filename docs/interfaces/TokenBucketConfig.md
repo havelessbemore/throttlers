@@ -6,7 +6,7 @@
 
 # Interface: TokenBucketConfig
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:18](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L18)
+Defined in: [src/strategies/tokenBucketStrategy.ts:18](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L18)
 
 Configuration options for creating a [TokenBucketStrategy](../classes/TokenBucketStrategy.md).
 
@@ -26,7 +26,7 @@ Configuration options for creating a [TokenBucketStrategy](../classes/TokenBucke
 
 > **capacity**: `number`
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:25](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L25)
+Defined in: [src/strategies/tokenBucketStrategy.ts:25](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L25)
 
 Maximum number of tokens the bucket can hold.
 
@@ -39,7 +39,7 @@ limit are throttled until enough refill has occurred.
 
 > **refillRate**: `number`
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:32](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L32)
+Defined in: [src/strategies/tokenBucketStrategy.ts:32](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L32)
 
 Rate at which tokens refill per second.
 

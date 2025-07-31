@@ -91,6 +91,6 @@
     "typescript-eslint": "^8.38.0"
   },
   "dependencies": {
-    "wait-utils": "^2.0.0"
+    "wait-utils": "^2.1.0"
   }
 }

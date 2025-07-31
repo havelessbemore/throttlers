@@ -6,7 +6,7 @@
 
 # Class: TokenBucketStrategy
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:44](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L44)
+Defined in: [src/strategies/tokenBucketStrategy.ts:44](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L44)
 
 A throttler that uses the token bucket algorithm.
 
@@ -26,7 +26,7 @@ continuously over time based on the configured refill rate.
 
 > **new TokenBucketStrategy**(`__namedParameters`): `TokenBucketStrategy`
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:65](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L65)
+Defined in: [src/strategies/tokenBucketStrategy.ts:65](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L65)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/strategies/tokenBucketStrategy.ts:65](https://github.com/havele
 
 > `readonly` **capacity**: `number`
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:48](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L48)
+Defined in: [src/strategies/tokenBucketStrategy.ts:48](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L48)
 
 Maximum number of tokens in the bucket.
 
@@ -54,7 +54,7 @@ Maximum number of tokens in the bucket.
 
 > `readonly` **refillRate**: `number`
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:58](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L58)
+Defined in: [src/strategies/tokenBucketStrategy.ts:58](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L58)
 
 Rate at which tokens are added, per second.
 
@@ -64,7 +64,7 @@ Rate at which tokens are added, per second.
 
 > **tryAcquire**(): [`TryAcquireResult`](../type-aliases/TryAcquireResult.md)
 
-Defined in: [src/strategies/tokenBucketStrategy.ts:89](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/tokenBucketStrategy.ts#L89)
+Defined in: [src/strategies/tokenBucketStrategy.ts:89](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/tokenBucketStrategy.ts#L89)
 
 Attempts to acquire permission to proceed with a request.
 

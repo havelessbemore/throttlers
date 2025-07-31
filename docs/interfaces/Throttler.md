@@ -6,7 +6,7 @@
 
 # Interface: Throttler
 
-Defined in: [src/types/throttler.ts:25](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttler.ts#L25)
+Defined in: [src/types/throttler.ts:25](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/types/throttler.ts#L25)
 
 An interface for throttlers that regulate the pacing
 of operations to conform to a specified rate.
@@ -17,7 +17,7 @@ of operations to conform to a specified rate.
 
 > **acquire**(`options?`): `Promise`\<`void`\>
 
-Defined in: [src/types/throttler.ts:42](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttler.ts#L42)
+Defined in: [src/types/throttler.ts:42](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/types/throttler.ts#L42)
 
 Asynchronously acquires the ability to proceed.
 
@@ -49,7 +49,7 @@ A [TimeoutError](../classes/TimeoutError.md) if the wait time exceeds [AcquireOp
 
 > **tryAcquire**(): `boolean`
 
-Defined in: [src/types/throttler.ts:32](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttler.ts#L32)
+Defined in: [src/types/throttler.ts:32](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/types/throttler.ts#L32)
 
 Attempts to acquire permission immediately.
 

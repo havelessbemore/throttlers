@@ -6,7 +6,7 @@
 
 # Interface: TryAcquireSuccess
 
-Defined in: [src/types/throttlerStrategy.ts:4](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttlerStrategy.ts#L4)
+Defined in: [src/types/throttlerStrategy.ts:4](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/types/throttlerStrategy.ts#L4)
 
 Indicates a successful attempt to acquire a permit.
 
@@ -16,7 +16,7 @@ Indicates a successful attempt to acquire a permit.
 
 > `optional` **retryAfterMs**: `undefined`
 
-Defined in: [src/types/throttlerStrategy.ts:8](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttlerStrategy.ts#L8)
+Defined in: [src/types/throttlerStrategy.ts:8](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/types/throttlerStrategy.ts#L8)
 
 Not defined on successful acquisition.
 
@@ -26,6 +26,6 @@ Not defined on successful acquisition.
 
 > **success**: `true`
 
-Defined in: [src/types/throttlerStrategy.ts:13](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/types/throttlerStrategy.ts#L13)
+Defined in: [src/types/throttlerStrategy.ts:13](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/types/throttlerStrategy.ts#L13)
 
 Always `true` when acquisition is successful.

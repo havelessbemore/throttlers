@@ -6,7 +6,7 @@
 
 # Class: FixedWindowStrategy
 
-Defined in: [src/strategies/fixedWindowStrategy.ts:41](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/fixedWindowStrategy.ts#L41)
+Defined in: [src/strategies/fixedWindowStrategy.ts:41](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/fixedWindowStrategy.ts#L41)
 
 A throttler that uses the fixed window algorithm.
 
@@ -27,7 +27,7 @@ window boundaries.
 
 > **new FixedWindowStrategy**(`__namedParameters`): `FixedWindowStrategy`
 
-Defined in: [src/strategies/fixedWindowStrategy.ts:62](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/fixedWindowStrategy.ts#L62)
+Defined in: [src/strategies/fixedWindowStrategy.ts:62](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/fixedWindowStrategy.ts#L62)
 
 #### Parameters
 
@@ -45,7 +45,7 @@ Defined in: [src/strategies/fixedWindowStrategy.ts:62](https://github.com/havele
 
 > `readonly` **duration**: `number`
 
-Defined in: [src/strategies/fixedWindowStrategy.ts:45](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/fixedWindowStrategy.ts#L45)
+Defined in: [src/strategies/fixedWindowStrategy.ts:45](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/fixedWindowStrategy.ts#L45)
 
 The size of the window in milliseconds.
 
@@ -55,7 +55,7 @@ The size of the window in milliseconds.
 
 > `readonly` **limit**: `number`
 
-Defined in: [src/strategies/fixedWindowStrategy.ts:50](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/fixedWindowStrategy.ts#L50)
+Defined in: [src/strategies/fixedWindowStrategy.ts:50](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/fixedWindowStrategy.ts#L50)
 
 The number of requests allowed per window.
 
@@ -65,7 +65,7 @@ The number of requests allowed per window.
 
 > **tryAcquire**(): [`TryAcquireResult`](../type-aliases/TryAcquireResult.md)
 
-Defined in: [src/strategies/fixedWindowStrategy.ts:84](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/fixedWindowStrategy.ts#L84)
+Defined in: [src/strategies/fixedWindowStrategy.ts:84](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/fixedWindowStrategy.ts#L84)
 
 Attempts to acquire permission to proceed with a request.
 

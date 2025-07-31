@@ -6,7 +6,7 @@
 
 # Class: LinearStrategy
 
-Defined in: [src/strategies/linearStrategy.ts:30](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L30)
+Defined in: [src/strategies/linearStrategy.ts:30](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/linearStrategy.ts#L30)
 
 A throttler that enforces a fixed delay between requests.
 
@@ -24,7 +24,7 @@ consistent pacing without bursts.
 
 > **new LinearStrategy**(`__namedParameters`): `LinearStrategy`
 
-Defined in: [src/strategies/linearStrategy.ts:41](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L41)
+Defined in: [src/strategies/linearStrategy.ts:41](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/linearStrategy.ts#L41)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/strategies/linearStrategy.ts:41](https://github.com/havelessbem
 
 > `readonly` **duration**: `number`
 
-Defined in: [src/strategies/linearStrategy.ts:34](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L34)
+Defined in: [src/strategies/linearStrategy.ts:34](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/linearStrategy.ts#L34)
 
 The minimum duration between requests, in milliseconds.
 
@@ -52,7 +52,7 @@ The minimum duration between requests, in milliseconds.
 
 > **tryAcquire**(): [`TryAcquireResult`](../type-aliases/TryAcquireResult.md)
 
-Defined in: [src/strategies/linearStrategy.ts:58](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L58)
+Defined in: [src/strategies/linearStrategy.ts:58](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/linearStrategy.ts#L58)
 
 Attempts to acquire permission to proceed with the operation.
 

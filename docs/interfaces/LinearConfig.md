@@ -6,7 +6,7 @@
 
 # Interface: LinearConfig
 
-Defined in: [src/strategies/linearStrategy.ts:16](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L16)
+Defined in: [src/strategies/linearStrategy.ts:16](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/linearStrategy.ts#L16)
 
 Configuration options for creating a [LinearStrategy](../classes/LinearStrategy.md).
 
@@ -25,6 +25,6 @@ Configuration options for creating a [LinearStrategy](../classes/LinearStrategy.
 
 > **duration**: `number`
 
-Defined in: [src/strategies/linearStrategy.ts:20](https://github.com/havelessbemore/throttlers/blob/71b6926c68e5c43e70c3be251f905b2bb4d30de8/src/strategies/linearStrategy.ts#L20)
+Defined in: [src/strategies/linearStrategy.ts:20](https://github.com/havelessbemore/throttlers/blob/3e64dbc7f42ad7431d8e4aaaafc9787d4a004f91/src/strategies/linearStrategy.ts#L20)
 
 The minimum duration between requests, in milliseconds.
